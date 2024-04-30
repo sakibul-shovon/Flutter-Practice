@@ -1,0 +1,38 @@
+name: Compile Flutter Project
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v2
+
+    # - name: Set up Flutter
+    #   uses: subosito/flutter-action@v2
+    #   with:
+    #     flutter-version: stable
+
+    - name: Compile Flutter project
+      run: |
+        PROJECT_NAME="${{ secrets.FLUTTER_PROJECT }}"
+        if [ -z "$PROJECT_NAME" ]; then
+          echo "Flutter project name not provided in secrets."
+          exit 1
+        fi
+        
+        PROJECT_DIR="./$PROJECT_NAME"
+        if [ ! -d "$PROJECT_DIR" ]; then
+          echo "Flutter project directory '$PROJECT_NAME' not found."
+          exit 1
+        fi
+        
+        cd "$PROJECT_DIR"
+        bash compile_flutter_project.sh
+      env:
+        FLUTTER_PROJECT: ${{ secrets.FLUTTER_PROJECT }}
+        token: ${{ secrets.TOKEN }}
+        chat_id: ${{ secrets.CHAT_ID }}
