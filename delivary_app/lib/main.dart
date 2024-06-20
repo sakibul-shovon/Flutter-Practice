@@ -1,4 +1,6 @@
 import 'package:delivary_app/Pages/LoginPage.dart';
+import 'package:delivary_app/Pages/register_page.dart';
+import 'package:delivary_app/auth/login_or_register.dart';
 import 'package:delivary_app/themes/themeProvider.dart';
 
 import 'package:flutter/material.dart';
@@ -20,9 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(
-        onTap: () {},
-      ),
+      home: const LoginOrRegister(),
       theme: Provider.of<ThemeProvider>(context).themeData,
     );
   }
